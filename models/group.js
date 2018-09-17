@@ -5,4 +5,4 @@ var groupSchema = new mongoose.Schema({
   postId :  [{type: mongoose.Schema.Types.ObjectId, ref:'Posts'}],
 });
 
-module.exports = mongoose.model('Posts', commentSchema);
+module.exports = mongoose.model('Groups', groupSchema);

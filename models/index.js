@@ -9,3 +9,6 @@ mongoose.set('useCreateIndex', true);
 
 // Include models from this folder
 module.exports.User = require('./user');
+module.exports.Comments = require('./comment.js');
+module.exports.Groups = require('./group.js');
+module.exports.Posts = require('./post.js');
