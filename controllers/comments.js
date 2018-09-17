@@ -26,6 +26,10 @@ router.post('/comments/new', (req, res) => {
   db.Comments.create({req.body}, (createdComment) => {
     createdComment.time = new Date();
     createdComment.save();
+    db.Posts.findById(req.body.postId, (foundPost) => {
+      foundPost.comments.push(createdComment.id);
+      foundPost.save();
+    });
     res.send(createdComment);
   }).catch((err) => {
     res.status(400).send('An error has occured');
