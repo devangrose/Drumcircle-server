@@ -42,6 +42,9 @@ app.use('/auth', expressJWT({
     { url: '/auth/signup', methods: ['POST'] }
   ]
 }), require('./controllers/auth'));
+app.use('/groups',require('./controllers/groups.js'));
+app.use('/comments',require('./controllers/comments.js'));
+app.use('/posts',require('./controllers/posts.js'));
 
 app.get('*', function(req, res, next) {
 	res.send({ message: 'Unknown Route' });
