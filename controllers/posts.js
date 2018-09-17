@@ -28,6 +28,7 @@ router.post('/posts/new', (req, res) => {
     createdPost.save();
     db.Groups.findByid(req.body.groupId, (foundGroup) => {
       foundGroup.posts.push(createdPost.id);
+      foundGroup.save();
     });
     res.send(createdPost);
   }).catch((err) => {
