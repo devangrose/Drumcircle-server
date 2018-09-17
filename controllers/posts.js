@@ -5,7 +5,7 @@ const db = require('../models');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  db.Posts.find().then((posts) => { res.send(groups)})
+  db.Posts.find().then((posts) => { res.send(posts)})
     .catch((err) => {
       console.log(err);
       res.status(400).send('An error has occured');
@@ -13,9 +13,10 @@ router.get('/', (req, res) => {
 });
 
 // Get all posts related to a user
-router.get('/:id', function (req,res){
-  db.Posts.findById(req.params.id, (foundPost) => {
-    res.send(foundPost);
+router.get('/:groupId', function (req,res){
+  db.Posts.find({groupId: req.params.groupId}).then((foundPosts) => {
+    console.log(foundPosts);
+    res.send(foundPosts);
   }).catch((err) => {
     console.log(err);
     res.status(400).send('An error has occured');
