@@ -26,6 +26,9 @@ router.post('/posts/new', (req, res) => {
   db.Posts.create({req.body}, (createdPost) => {
     createdPost.time = new Date();
     createdPost.save();
+    db.Groups.findByid(req.body.groupId, (foundGroup) => {
+      foundGroup.posts.push(createdPost.id);
+    });
     res.send(createdPost);
   }).catch((err) => {
     res.status(400).send('An error has occured');
