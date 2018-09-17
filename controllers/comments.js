@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../models');
 const router = express.Router();
 
-router.get('/comments', (req, res) => {
+router.get('/', (req, res) => {
   db.Comments.find().then((comments) => { res.send(groups)})
     .catch((err) => {
       res.status(400).send('An error has occured');
@@ -13,7 +13,7 @@ router.get('/comments', (req, res) => {
 });
 
 // Get all comments related to a post
-router.get('/comments/:id', function (req,res){
+router.get('/:id', function (req,res){
   db.Comments.findById(req.params.id, (foundComment) => {
     res.send(foundComment);
   }).catch((err) => {
@@ -22,8 +22,8 @@ router.get('/comments/:id', function (req,res){
   });
 });
 
-router.post('/comments/new', (req, res) => {
-  db.Comments.create({req.body}, (createdComment) => {
+router.post('/new', (req, res) => {
+  db.Comments.create(req.body).then((createdComment) => {
     createdComment.time = new Date();
     createdComment.save();
     db.Posts.findById(req.body.postId, (foundPost) => {
@@ -36,20 +36,20 @@ router.post('/comments/new', (req, res) => {
   });
 });
 
-router.put('/comments/:id', (req, res) => {
-  db.Comments.findByIdAndUpdate(req.params.id, {$set: {req.body}}, (updatedComment) {
+router.put('/:id', (req, res) => {
+  db.Comments.findByIdAndUpdate(req.params.id, {$set: req.body}, (updatedComment)=> {
     res.send(updatedComment);
   }).catch((err) => {
     res.status(400).send('An error has occured');
   });
 });
 
-router.delete('/comments/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   db.Comments.findByIdAndDelete(req.params.id, (deleted) => {
     res.send(deleted);
+  }).catch((err) => {
+    res.status(400).send('An error has occured');
   });
-}).catch((err) => {
-  res.status(400).send('An error has occured');
 });
 
 
