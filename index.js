@@ -39,7 +39,8 @@ app.use('/auth', expressJWT({
   }).unless({
   path: [
     { url: '/auth/login', methods: ['POST'] },
-    { url: '/auth/signup', methods: ['POST'] }
+    { url: '/auth/signup', methods: ['POST'] },
+    { url: '/auth/users', methods:['GET'] }
   ]
 }), require('./controllers/auth'));
 app.use('/groups',require('./controllers/groups.js'));
