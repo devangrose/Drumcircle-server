@@ -14,8 +14,8 @@ router.get('/', (req, res) => {
 
 // Get all posts related to a user
 router.get('/:groupId', function (req,res){
-  db.Posts.find({groupId: req.params.groupId}).then((foundPosts) => {
-    console.log(foundPosts);
+  console.log(req.params.groupId);
+  db.Posts.find({groupId: req.params.groupId}).populate('userId').then((foundPosts) => {
     res.send(foundPosts);
   }).catch((err) => {
     console.log(err);
