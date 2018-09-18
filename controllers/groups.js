@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 });
 
 // Get all groups related to a user
-router.get('/:id', function (req,res){
-  db.Groups.findById(req.params.id, (foundGroup) => {
+router.get('/:userId', function (req,res){
+  db.Groups.find({userId: req.params.userId}).then((foundGroup) => {
     res.send(foundGroup);
   }).catch((err) => {
     console.log(err);
@@ -31,14 +31,17 @@ router.post('/new', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  db.Groups.findByIdAndUpdate(req.params.id, {$set: req.body}, (updatedGroup) => {
+  console.log(req.body.postId);
+  db.Groups.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}).then((updatedGroup) => {
+    console.log(updatedGroup);
     res.send(updatedGroup);
   }).catch((err) => {
+    console.log(err);
     res.status(400).send('An error has occured');
   });
 });
 
-router.delete('/groups/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   db.Groups.findByIdAndDelete(req.params.id, (deleted) => {
     res.send(deleted);
   }).catch((err) => {

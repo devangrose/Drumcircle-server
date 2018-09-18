@@ -41,6 +41,8 @@ router.post('/new', (req, res) => {
 
 router.put('/:id', (req, res) => {
   db.Posts.findByIdAndUpdate(req.params.id, {$set: req.body}, (updatedPost) => {
+    req.body.postId.forEach((id) => updatedPost.postId.push(id));
+    console.log(updatedPost);
     res.send(updatedPost);
   }).catch((err) => {
     console.log(err);
