@@ -30,7 +30,8 @@ userSchema.set('toJSON', {
     var returnJson = {
       id: user._id,
       email: user.email,
-      name: user.name
+      name: user.name,
+      image: user.image
     };
     return returnJson;
   }

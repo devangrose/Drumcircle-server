@@ -25,7 +25,6 @@ router.post('/login', (req, res) => {
     const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
       expiresIn: 60 * 60 * 24
     });
-
     // Send that token and the user info
     res.send({ user: user, token: token });
   })

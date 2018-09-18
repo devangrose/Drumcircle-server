@@ -5,7 +5,7 @@ const db = require('../models');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  db.Comments.find().then((comments) => { res.send(comments)})
+  db.Comments.findAll().then((comments) => { res.send(comments)})
     .catch((err) => {
       res.status(400).send('An error has occured');
     });
