@@ -29,6 +29,7 @@ router.post('/new', (req, res) => {
     createdComment.save();
     res.send(createdComment);
   }).catch((err) => {
+    console.log(err);
     res.status(400).send('An error has occured');
   });
 });
