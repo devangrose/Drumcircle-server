@@ -68,12 +68,6 @@ router.post('/signup', function(req, res) {
   });
 });
 
-router.get('/users', function (req, res) {
-  db.User.find().then(function (userArr) {
-    userArr.map(function (user){return user.toJSON()});
-    res.send(userArr);
-  });
-});
 
 // This is checked on a browser refresh
 router.post('/me/from/token', function(req, res) {

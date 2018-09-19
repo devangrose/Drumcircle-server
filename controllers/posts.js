@@ -24,6 +24,7 @@ router.get('/:groupId', function (req,res){
 });
 
 router.post('/new', (req, res) => {
+  console.log(req.body);
   db.Posts.create(req.body).then((createdPost) => {
     console.log(createdPost);
     createdPost.time = new Date();

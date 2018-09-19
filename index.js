@@ -7,6 +7,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const path = require('path');
 
+const db = require('./models');
 // App instance
 const app = express();
 
@@ -47,6 +48,14 @@ app.use('/groups',require('./controllers/groups.js'));
 app.use('/comments',require('./controllers/comments.js'));
 app.use('/posts',require('./controllers/posts.js'));
 
+app.get('/users', function (req, res) {
+  console.log('route hit');
+  db.User.find().then(function (userArr) {
+    console.log("user array", userArr);
+    userArr.map(function (user){return user.toJSON()});
+    res.send(userArr);
+  });
+});
 app.get('*', function(req, res, next) {
 	res.send({ message: 'Unknown Route' });
 });
