@@ -28,10 +28,6 @@ router.post('/new', (req, res) => {
     console.log(createdPost);
     createdPost.time = new Date();
     createdPost.save();
-    db.Groups.findById(req.body.groupId, (foundGroup) => {
-      foundGroup.posts.push(createdPost.id);
-      foundGroup.save();
-    });
     res.send(createdPost);
   }).catch((err) => {
     console.log(err);
