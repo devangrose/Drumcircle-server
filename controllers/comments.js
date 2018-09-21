@@ -13,9 +13,7 @@ router.get('/', (req, res) => {
 
 // Get all comments related to a post
 router.get('/:postId', function (req,res){
-  console.log(req.params.postId);
   db.Comments.find({postId: req.params.postId}).populate('userId').then((foundComment) => {
-    console.log(foundComment);
     res.send(foundComment);
   }).catch((err) => {
     console.log(err);

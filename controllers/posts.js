@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 
 // Get all posts related to a user
 router.get('/:groupId', function (req,res){
-  console.log(req.params.groupId);
   db.Posts.find({groupId: req.params.groupId}).populate('userId').then((foundPosts) => {
     res.send(foundPosts);
   }).catch((err) => {
@@ -24,9 +23,7 @@ router.get('/:groupId', function (req,res){
 });
 
 router.post('/new', (req, res) => {
-  console.log(req.body);
   db.Posts.create(req.body).then((createdPost) => {
-    console.log(createdPost);
     createdPost.time = new Date();
     createdPost.save();
     res.send(createdPost);
@@ -39,7 +36,6 @@ router.post('/new', (req, res) => {
 router.put('/:id', (req, res) => {
   db.Posts.findByIdAndUpdate(req.params.id, {$set: req.body}, (updatedPost) => {
     req.body.postId.forEach((id) => updatedPost.postId.push(id));
-    console.log(updatedPost);
     res.send(updatedPost);
   }).catch((err) => {
     console.log(err);

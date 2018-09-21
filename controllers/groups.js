@@ -11,6 +11,11 @@ router.get('/', (req, res) => {
       res.status(400).send('An error has occured');
     });
 });
+router.get('/one/:groupId',function (req, res) {
+  db.Groups.find({_id: req.params.groupId}).populate('userId').then((foundGroup) => {
+    res.send(foundGroup);
+  });
+});
 
 // Get all groups related to a user
 router.get('/:userId', function (req,res){
@@ -31,9 +36,7 @@ router.post('/new', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  console.log(req.body.postId);
   db.Groups.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}).then((updatedGroup) => {
-    console.log(updatedGroup);
     res.send(updatedGroup);
   }).catch((err) => {
     console.log(err);
